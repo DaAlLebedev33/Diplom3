@@ -27,7 +27,6 @@ public class СonstructorSteps {
     // Текст при открытии ингридиента
     private final By textOpenIngridient = By.xpath("//h2[text()='Детали ингредиента']");
 
-
     public СonstructorSteps(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));

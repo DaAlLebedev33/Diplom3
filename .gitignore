@@ -1,39 +1,36 @@
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.pid
+
+### Maven ###
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.kotlin
+!target/maven-status/
+!target/maven-archiver/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+### Allure Reports (если хотите пушить) ###
+# Игнорируем все в target, кроме Allure
+target/
+!target/allure-results/
+!target/site/
+
+### IDE ###
+.idea/
 *.iml
+*.iws
 *.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
 .vscode/
+.classpath
+.project
+.settings/
 
-### Mac OS ###
+### OS ###
 .DS_Store
+Thumbs.db
+
+### Logs ###
+logs/
+*.log
