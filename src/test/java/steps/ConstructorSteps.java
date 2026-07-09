@@ -10,23 +10,24 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
 public class ConstructorSteps {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Кнопка выбора булки
-    private final By buttonBuns = By.xpath("//p[text()='Краторная булка N-200i']");
+    // Заголовки секций
+    private final By bunsTitle = By.xpath("//h2[text()='Булки']");
+    private final By saucesTitle = By.xpath("//h2[text()='Соусы']");
+    private final By fillingsTitle = By.xpath("//h2[text()='Начинки']");
 
-    // Кнопка соусов
-    private final By buttonSauce = By.xpath("//p[text()='Соус с шипами Антарианского плоскоходца']");
+    // Контейнер со всеми ингредиентами
+    private final By ingredientsContainer = By.xpath("//section[contains(@class, 'BurgerIngredients_ingredients__1N8v2')]");
 
-    // Кнопка начинки
-    private final By buttonFilling = By.xpath("//p[text()='Хрустящие минеральные кольца']");
+    // Вкладки по ингридиентам
+    private final By tabBun = By.xpath(".//span[text()='Булки']/parent::div");
+    private final By tabSauces = By.xpath(".//span[text()='Соусы']/parent::div");
+    private final By tabFilling = By.xpath(".//span[text()='Начинки']/parent::div");
 
-    // Текст при открытии ингридиента
-    private final By modalTitle = By.xpath("//*[contains(text(), 'Детали ингредиента')]");
 
     public ConstructorSteps(WebDriver driver) {
         this.driver = driver;
@@ -37,33 +38,75 @@ public class ConstructorSteps {
     private void scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", element);
         try {
-            Thread.sleep(500); // Небольшая задержка для анимации скролла
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-        @Step("Скролл до элемента и клик по кнопке 'Соусы'")
-        public void clickSauceButton () {
-            WebElement sauceTag = wait.until(ExpectedConditions.visibilityOfElementLocated(buttonSauce));
-            wait.until(ExpectedConditions.elementToBeClickable(sauceTag)).click();
-            Assertions.assertTrue(driver.findElement(modalTitle).getText()
-                    .equals("Детали ингредиента"));
-        }
-
-    @Step("Скролл до элемента и клик по кнопке 'Начинки'")
-    public void clickFillingButton() {
-        WebElement fillingTag = wait.until(ExpectedConditions.visibilityOfElementLocated(buttonFilling));
-        scrollToElement(fillingTag);
-        wait.until(ExpectedConditions.elementToBeClickable(fillingTag)).click();
-        Assertions.assertTrue(driver.findElement(modalTitle).getText()
-                .equals("Детали ингредиента"));
+    @Step("Проверка, что контейнер со всеми ингредиентами отображается")
+    public void verifyIngredientsContainerVisible() {
+        WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(ingredientsContainer));
+        Assertions.assertTrue(container.isDisplayed(),
+                "Контейнер со всеми ингредиентами должен отображаться");
     }
 
-    @Step("Клик по кнопке 'Булки'")
-    public void clickBunsButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonBuns)).click();
-        Assertions.assertTrue(driver.findElement(modalTitle).getText()
-                .equals("Детали ингредиента"));
+    @Step("Клик по вкладке 'Булки'")
+    public void clickBunsTab() {
+        WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tabBun));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", tab);
     }
+
+    @Step("Клик по вкладке 'Соусы'")
+    public void clickSaucesTab() {
+        WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tabSauces));
+        tab.click();
+    }
+
+    @Step("Клик по вкладке 'Начинки'")
+    public void clickFillingsTab() {
+        WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tabFilling));
+        tab.click();
+    }
+
+    @Step("Проверка, что заголовок 'Булки' отображается")
+    public void verifyBunTitleVisible() {
+        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(bunsTitle));
+        Assertions.assertTrue(title.isDisplayed(),
+                "Заголовок 'Булки' должен отображаться");
+    }
+
+    @Step("Проверка, что заголовок 'Соусы' отображается")
+    public void verifySaucesTitleVisible() {
+        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(saucesTitle));
+        Assertions.assertTrue(title.isDisplayed(),
+                "Заголовок 'Соусы' должен отображаться");
+    }
+
+    @Step("Проверка, что заголовок 'Начинки' отображается")
+    public void verifyFillingTitleVisible() {
+        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(fillingsTitle));
+        Assertions.assertTrue(title.isDisplayed(),
+                "Заголовок 'Начинки' должен отображаться");
+    }
+
+    // Комбинированные методы для полного сценария
+    @Step("Переключение на вкладку 'Булки' и проверка заголовка")
+    public void switchBunTab() {
+        clickBunsTab();
+        verifyBunTitleVisible();
+    }
+
+    @Step("Переключение на вкладку 'Соусы' и проверка заголовка")
+    public void switchSaucesTab() {
+        clickSaucesTab();
+        verifySaucesTitleVisible();
+    }
+
+    @Step("Переключение на вкладку 'Начинки' и проверка заголовка")
+    public void switchFillingTab() {
+        clickFillingsTab();
+        verifyFillingTitleVisible();
+    }
+
 }

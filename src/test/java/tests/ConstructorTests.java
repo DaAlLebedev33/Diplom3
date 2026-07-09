@@ -33,7 +33,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
-        constructor.clickBunsButton();
+        constructor.switchBunTab();
     }
 
     @ParameterizedTest
@@ -45,7 +45,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
-        constructor.clickSauceButton();
+        constructor.switchSaucesTab();
     }
 
     @ParameterizedTest
@@ -57,7 +57,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
-        constructor.clickFillingButton();
+        constructor.switchFillingTab();
     }
 
     @AfterEach
