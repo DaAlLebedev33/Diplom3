@@ -54,6 +54,7 @@ public class ConstructorSteps {
     @Step("Клик по вкладке 'Булки'")
     public void clickBunsTab() {
         WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tabBun));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", tab);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", tab);
     }
 
