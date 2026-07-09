@@ -26,7 +26,7 @@ public class ConstructorTests {
 
     @ParameterizedTest
     @MethodSource("constructorTest")
-    @DisplayName("Проверка открытия окна Детали ингридиента для Булок")
+    @DisplayName("Проверка открытия раздела Булки")
     public void checkCunstructorBuns(String browserName){
         browser = new Browser();
         browser.setUp(browserName, BASE_URL);
@@ -38,7 +38,7 @@ public class ConstructorTests {
 
     @ParameterizedTest
     @MethodSource("constructorTest")
-    @DisplayName("Проверка открытия окна Детали ингридиента для Соусы")
+    @DisplayName("Проверка открытия раздела Соусы")
     public void checkCunstructorSauce(String browserName){
         browser = new Browser();
         browser.setUp(browserName, BASE_URL);
@@ -50,7 +50,7 @@ public class ConstructorTests {
 
     @ParameterizedTest
     @MethodSource("constructorTest")
-    @DisplayName("Проверка открытия окна Детали ингридиента для Начинки")
+    @DisplayName("Проверка открытия раздела Начинки")
     public void checkCunstructorFilling(String browserName){
         browser = new Browser();
         browser.setUp(browserName, BASE_URL);
