@@ -65,7 +65,6 @@ public class ConstructorSteps {
         return title.getText();
     }
 
-    // Комбинированные методы для полного сценария
     @Step("Переключение на вкладку 'Булки' и проверка заголовка")
     public void switchBunTab() {
         clickBunsTab();
