@@ -32,16 +32,6 @@ public class ConstructorSteps {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    @Step("Скролл до элемента")
-    private void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", element);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     @Step("Проверка, что контейнер со всеми ингредиентами отображается")
     public void verifyIngredientsContainerVisible() {
         WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(ingredientsContainer));
