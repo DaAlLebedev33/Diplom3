@@ -88,5 +88,4 @@ public class ConstructorSteps {
         Assertions.assertEquals("Начинки", actualTitle,
                 "Заголовок активной вкладки должен быть 'Начинки'");
     }
-
 }
