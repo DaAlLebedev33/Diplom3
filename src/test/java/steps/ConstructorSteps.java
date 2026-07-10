@@ -15,10 +15,8 @@ public class ConstructorSteps {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Заголовки секций
-    private final By bunsTitle = By.xpath("//h2[text()='Булки']");
-    private final By saucesTitle = By.xpath("//h2[text()='Соусы']");
-    private final By fillingsTitle = By.xpath("//h2[text()='Начинки']");
+    // Меню конкретной вкладки
+    private final By menuForSpecificTab = By.xpath("//div[contains(@class,'tab_tab__1SPyG tab_tab_type_current__2BEPc')]");
 
     // Контейнер со всеми ингредиентами
     private final By ingredientsContainer = By.xpath("//section[contains(@class, 'BurgerIngredients_ingredients__1N8v2')]");
@@ -26,7 +24,7 @@ public class ConstructorSteps {
     // Вкладки по ингридиентам
     private final By tabBun = By.xpath(".//span[text()='Булки']/parent::div");
     private final By tabSauces = By.xpath(".//span[text()='Соусы']/parent::div");
-    private final By tabFilling = By.xpath(".//span[text()='Начинки']/parent::div");
+    private final By tabFilling = By.xpath(".//span[text()='Начинки']");
 
 
     public ConstructorSteps(WebDriver driver) {
@@ -66,48 +64,40 @@ public class ConstructorSteps {
 
     @Step("Клик по вкладке 'Начинки'")
     public void clickFillingsTab() {
-        WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tabFilling));
-        tab.click();
-    }
-
-    @Step("Проверка, что заголовок 'Булки' отображается")
-    public void verifyBunTitleVisible() {
-        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(bunsTitle));
-        Assertions.assertTrue(title.isDisplayed(),
-                "Заголовок 'Булки' должен отображаться");
-    }
-
-    @Step("Проверка, что заголовок 'Соусы' отображается")
-    public void verifySaucesTitleVisible() {
-        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(saucesTitle));
-        Assertions.assertTrue(title.isDisplayed(),
-                "Заголовок 'Соусы' должен отображаться");
+        driver.findElement(tabFilling).click();
     }
 
     @Step("Проверка, что заголовок 'Начинки' отображается")
-    public void verifyFillingTitleVisible() {
-        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(fillingsTitle));
+    public String verifyAllTitleVisible() {
+        WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(menuForSpecificTab));
         Assertions.assertTrue(title.isDisplayed(),
-                "Заголовок 'Начинки' должен отображаться");
+                "Заголовок активной вкладки отображается");
+        return title.getText();
     }
 
     // Комбинированные методы для полного сценария
     @Step("Переключение на вкладку 'Булки' и проверка заголовка")
     public void switchBunTab() {
         clickBunsTab();
-        verifyBunTitleVisible();
+        String actualTitle = verifyAllTitleVisible();
+        Assertions.assertEquals("Булки", actualTitle,
+                "Заголовок активной вкладки должен быть 'Начинки'");
     }
 
     @Step("Переключение на вкладку 'Соусы' и проверка заголовка")
     public void switchSaucesTab() {
         clickSaucesTab();
-        verifySaucesTitleVisible();
+        String actualTitle = verifyAllTitleVisible();
+        Assertions.assertEquals("Соусы", actualTitle,
+                "Заголовок активной вкладки должен быть 'Начинки'");
     }
 
     @Step("Переключение на вкладку 'Начинки' и проверка заголовка")
     public void switchFillingTab() {
         clickFillingsTab();
-        verifyFillingTitleVisible();
+        String actualTitle = verifyAllTitleVisible();
+        Assertions.assertEquals("Начинки", actualTitle,
+                "Заголовок активной вкладки должен быть 'Начинки'");
     }
 
 }

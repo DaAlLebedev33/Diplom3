@@ -1,5 +1,6 @@
 package tests;
 
+import dev.failsafe.internal.util.Assert;
 import helpers.Browser;
 import steps.AuthorizationSteps;
 import steps.ConstructorSteps;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static constants.Url.BASE_URL;
+import static java.awt.SystemColor.text;
 
 public class ConstructorTests {
     private AuthorizationSteps authorizationSteps;
@@ -33,6 +35,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
+        constructor.verifyIngredientsContainerVisible();
         constructor.switchBunTab();
     }
 
@@ -45,6 +48,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
+        constructor.verifyIngredientsContainerVisible();
         constructor.switchSaucesTab();
     }
 
@@ -57,6 +61,7 @@ public class ConstructorTests {
 
         authorizationSteps = new AuthorizationSteps(browser.driver);
         constructor = new ConstructorSteps(browser.driver);
+        constructor.verifyIngredientsContainerVisible();
         constructor.switchFillingTab();
     }
 
